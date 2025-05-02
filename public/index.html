@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket Visualization</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Socket Communication Visualization</h1>
+        <div class="client-info">
+            <span>Your Client ID: <span id="client-id">Connecting...</span></span>
+            <span>Status: <span id="connection-status">Initializing...</span></span>
+        </div>
+    </header>
+
+    <main>
+        <section class="interaction-panel">
+            <div class="connection-details">
+                <h2>Connection Details</h2>
+                <ul id="connection-events">
+                    <!-- Connection events will be added here -->
+                </ul>
+            </div>
+
+            <div class="message-panel">
+                <h2>Send Message</h2>
+                <div class="form-group">
+                    <label for="target-client">Target Client:</label>
+                    <select id="target-client">
+                        <option value="">Select a client...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="protocol">Protocol:</label>
+                    <select id="protocol">
+                        <option value="tcp">TCP</option>
+                        <option value="udp">UDP</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    <textarea id="message" placeholder="Type your message here"></textarea>
+                </div>
+                <button id="send-button">Send Message</button>
+            </div>
+
+            <div class="message-log">
+                <h2>Message Log</h2>
+                <div id="message-container">
+                    <!-- Messages will be added here -->
+                </div>
+            </div>
+        </section>
+
+        <section class="visualization-panel">
+            <div class="tabs">
+                <button class="tab-button active" data-tab="network-diagram">Network Diagram</button>
+                <button class="tab-button" data-tab="packet-inspector">Packet Inspector</button>
+                <button class="tab-button" data-tab="statistics">Statistics</button>
+            </div>
+
+            <div class="tab-content">
+                <div id="network-diagram" class="tab-pane active">
+                    <div class="visualization-container">
+                        <svg id="network-svg" width="100%" height="500"></svg>
+                    </div>
+                    <div class="visualization-legend">
+                        <h3>Legend</h3>
+                        <div class="legend-item">
+                            <div class="legend-color tcp"></div>
+                            <span>TCP Packet</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color udp"></div>
+                            <span>UDP Packet</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color ack"></div>
+                            <span>ACK Packet</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color error"></div>
+                            <span>Error/Lost Packet</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="packet-inspector" class="tab-pane">
+                    <h3>Recent Packets</h3>
+                    <div class="packet-list" id="packet-list">
+                        <!-- Packets will be added here -->
+                    </div>
+                    <div class="packet-details" id="packet-details">
+                        <h3>Packet Details</h3>
+                        <div id="packet-details-content">
+                            Select a packet to view details
+                        </div>
+                    </div>
+                </div>
+
+                <div id="statistics" class="tab-pane">
+                    <h3>Connection Statistics</h3>
+                    <table id="stats-table">
+                        <thead>
+                            <tr>
+                                <th>Client ID</th>
+                                <th>IP Address</th>
+                                <th>Connected At</th>
+                                <th>Packets Sent</th>
+                                <th>Packets Received</th>
+                                <th>Bytes Transferred</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stats-body">
+                            <!-- Stats will be added here -->
+                        </tbody>
+                    </table>
+                    <button id="refresh-stats">Refresh Statistics</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="handshake-visualization">
+            <h3>TCP Handshake Visualization</h3>
+            <div class="handshake-diagram" id="handshake-diagram">
+                <!-- Handshake visualization will be rendered here -->
+                <div class="handshake-client">Client</div>
+                <div class="handshake-steps">
+                    <div class="handshake-step" id="syn">
+                        <div class="step-arrow right"></div>
+                        <div class="step-label">SYN</div>
+                    </div>
+                    <div class="handshake-step" id="syn-ack">
+                        <div class="step-arrow left"></div>
+                        <div class="step-label">SYN-ACK</div>
+                    </div>
+                    <div class="handshake-step" id="ack">
+                        <div class="step-arrow right"></div>
+                        <div class="step-label">ACK</div>
+                    </div>
+                </div>
+                <div class="handshake-server">Server</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Socket.IO client library -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- D3.js for network visualization -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <!-- Custom scripts -->
+    <script src="scripts.js"></script>
+</body>
+</html>
